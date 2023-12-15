@@ -535,7 +535,6 @@ with gr.Blocks(analytics_enabled=False) as demo:
                 ref_gr = gr.Audio(
                     label="Reference Audio",
                     type="filepath",
-                    value="examples/female.wav",
                 )
                 mic_gr = gr.Audio(
                     sources="microphone",
