@@ -10,6 +10,8 @@ import torchaudio
 import numpy as np
 from transformers import WhisperProcessor, WhisperForConditionalGeneration
 from transformers import pipeline as PIPELINE
+import tkinter as tk
+from tkinter import messagebox
 
 
 #download for mecab
@@ -54,15 +56,24 @@ print("XTTS downloaded")
 
 config = XttsConfig()
 config.load_json(os.path.join(model_path, "config.json"))
-
 model = Xtts.init_from_config(config)
-model.load_checkpoint(
+
+def show_error(message):
+    root = tk.Tk()
+    root.withdraw()
+    messagebox.showerror("Error", f"Has your computer been sleeping for a while? Error occured. Please reboot and re-open the application. \n Error: {e}")
+
+try:
+    model.load_checkpoint(
     config,
     checkpoint_path=os.path.join(model_path, "model.pth"),
     vocab_path=os.path.join(model_path, "vocab.json"),
     eval=True,
     use_deepspeed=True,
 )
+except RuntimeError as e:
+    if "CUDA unknown error" in str(e):
+        show_error(str(e))
 model.cuda()
 device = "cuda"
 device2 = "cpu"
