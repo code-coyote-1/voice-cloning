@@ -10,8 +10,7 @@ import torchaudio
 import numpy as np
 from transformers import WhisperProcessor, WhisperForConditionalGeneration
 from transformers import pipeline as PIPELINE
-import tkinter as tk
-from tkinter import messagebox
+
 
 
 #download for mecab
